@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>2620E4FC-8FDA-4144-9549-451835A53074</string>
+	<key>IDESourceControlProjectName</key>
+	<string>MuPDF</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>001CA3A1-68A3-4E7A-8DAA-B3CAB03C3530</key>
+		<string>ssh://git.kdan.cc/mupdf_study</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>platform/ios/MuPDF.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>001CA3A1-68A3-4E7A-8DAA-B3CAB03C3530</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://git.kdan.cc/mupdf_study</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>001CA3A1-68A3-4E7A-8DAA-B3CAB03C3530</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>001CA3A1-68A3-4E7A-8DAA-B3CAB03C3530</string>
+			<key>IDESourceControlWCCName</key>
+			<string>mupdf_study</string>
+		</dict>
+	</array>
+</dict>
+</plist>
