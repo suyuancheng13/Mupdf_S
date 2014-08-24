@@ -421,7 +421,7 @@ extern dispatch_queue_t queue;
 {
     MuDocumentViewController *document = [[MuDocumentViewController alloc]initWithFilename:_filename document:_doc];
     if (document) {
-		[self setTitle: @"Library"];
+		[self setTitle: @"文档"];
 		[[self navigationController] pushViewController: document animated: YES];
 		[document release];
 	}
@@ -462,7 +462,8 @@ extern dispatch_queue_t queue;
 							destructiveButtonTitle: @"Delete"
 							otherButtonTitles: nil];
 	[sheet setTag: 1];
-	[sheet showInView: [self tableView]];
+    [sheet showFromToolbar: [self navigationController].toolbar];
+
 	[sheet release];
     
 }
@@ -478,7 +479,8 @@ extern dispatch_queue_t queue;
 							destructiveButtonTitle: @"Merge"
 							otherButtonTitles: nil];
 	[sheet setTag: 2];
-	[sheet showInView: [self tableView]];
+    [sheet showFromToolbar: [self navigationController].toolbar];
+
 	[sheet release];
 }
 - (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex

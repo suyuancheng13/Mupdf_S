@@ -91,7 +91,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "1125"
          endingLineNumber = "1125"
-         landmarkName = "-passWordTool"
+         landmarkName = "-choosePicWatermark"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -117,8 +117,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "592"
          endingLineNumber = "592"
-         landmarkName = "@implementation MuDocumentViewController"
-         landmarkType = "3">
+         landmarkName = "-searchBarSearchButtonClicked:"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
@@ -234,7 +234,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "1252"
          endingLineNumber = "1252"
-         landmarkName = "-modifyPermission"
+         landmarkName = "-showSecuritys"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
