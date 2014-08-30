@@ -19,7 +19,7 @@
 @property(nonatomic,retain)UIView *View;
 @property(nonatomic,retain)UIBarButtonItem *cancel;
 @property(nonatomic,retain)UIBarButtonItem *done;
-@property(nonatomic,assign)id<MuActionSheetActionDeleglate>MyDelegate;
+@property(nonatomic,retain)id<MuActionSheetActionDeleglate>MyDelegate;
 - (id)initWithtitle:(NSString*)title frame:(CGSize)size;
 - (void)addCancelBtn;
 - (void)addDoneBtn;
