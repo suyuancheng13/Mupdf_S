@@ -344,7 +344,20 @@ extern dispatch_queue_t queue;
 - (void)openDocument:(NSString *)filename
 {
     NSString *file = [NSString stringWithFormat:@"%@/Documents/%@", NSHomeDirectory(),filename];
-    _doc = fz_open_document(ctx, [file UTF8String]);
+    
+    //**emphance the robust of opeing file
+    fz_try(ctx){
+        _doc = fz_open_document(ctx, [file UTF8String]);
+    }
+    fz_catch(ctx)
+    {
+    
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Open failed" message:filename delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        [alert show];
+        [alert release];
+        
+        return;
+    }
     _filename = [filename retain];
     if(!_doc)
     {

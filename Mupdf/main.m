@@ -2630,11 +2630,11 @@ void addWatermark(pdf_document * doc,int pageNum)
     
     [tab release];
 
-//	filename = [[NSUserDefaults standardUserDefaults] objectForKey: @"OpenDocumentKey"];
-//	if (filename)
-//		[library openDocument: filename];
-//
-//	filename = [launchOptions objectForKey: UIApplicationLaunchOptionsURLKey];
+	filename = [[NSUserDefaults standardUserDefaults] objectForKey: @"OpenDocumentKey"];
+	if (filename)
+		[library openDocument: filename];
+
+	filename = [launchOptions objectForKey: UIApplicationLaunchOptionsURLKey];
 //	NSLog(@"urlkey = %@\n", filename);
 
 	return YES;

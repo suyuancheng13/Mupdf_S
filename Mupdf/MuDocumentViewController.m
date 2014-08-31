@@ -139,7 +139,7 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
 //
 //    [fileManager createFileAtPath:[NSTemporaryDirectory() stringByAppendingString:@"RecordedFile.wav"] contents:nil attributes:nil];
     self.isRecording = NO;
-    recordedFile = [[NSURL alloc]initFileURLWithPath:[NSTemporaryDirectory() stringByAppendingString:@"RecordedFile.wav"]];
+    recordedFile = [[NSURL alloc]initFileURLWithPath:[NSTemporaryDirectory() stringByAppendingString:@"RecordedFile.wav"]];//use alloc method is a good way
     AVAudioSession *session = [AVAudioSession sharedInstance];
     
     NSError *sessionError;
@@ -354,8 +354,8 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
      set the canvas 
      */
 
-    [canvas setContentSize: CGSizeMake(fz_count_pages(doc) * max_width, height)];
-	[canvas setContentOffset: CGPointMake(current * width, 0)];
+//    [canvas setContentSize: CGSizeMake(fz_count_pages(doc) * max_width, height)];
+//	[canvas setContentOffset: CGPointMake(current * width, 0)];
     /*
      layout the pageview
      */
@@ -372,6 +372,7 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
 - (void) viewWillDisappear:(BOOL)animated
 {
     [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"OpenDocumentKey"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
     [[self navigationController]setToolbarHidden:YES];
     
 }
@@ -399,7 +400,7 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
     /*
      get the curren page
      */
-    float x = [canvas contentOffset].x+0.5f;
+    float x = [canvas contentOffset].x+width*0.5f;
     current = x / width;
     [indicator setText:[NSString stringWithFormat:@"%d of %d",current+1,pages]];
     [slider setValue:current];
@@ -454,36 +455,25 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
     if(current == number)
         return;
     
-    
-//    int find=0;
-//    for(MuPageViewer *p in [canvas subviews])
-//    {
-//        if( [p number]== number)
-//            find =1;
-//    }
-//    if(!find)
-//    {
-//         MuPageViewer *pageview = [[MuPageViewer alloc]initWithFrame:CGRectMake(width*number,0, width-GAP, height) document:doc page:number];
-//        [canvas addSubview:pageview];
-//    }
-    if(animated)
-    {
+    if(animated){
+        scroll_animating = YES;
         [UIView beginAnimations: @"MuScroll" context: NULL];
         [UIView setAnimationDuration: 0.4];
         [UIView setAnimationBeginsFromCurrentState: YES];
         [UIView setAnimationDelegate: self];
         [UIView setAnimationDidStopSelector: @selector(onGotoPageFinished)];
-        
-        
-        [canvas setContentOffset:CGPointMake(number*width, 0)];
+       
+        [canvas setContentOffset: CGPointMake(number * width, 0)];
+        [slider setValue: number];
+        [indicator setText: [NSString stringWithFormat: @" %d of %d ", number+1, fz_count_pages(doc)]];
         
         [UIView commitAnimations];
+        current = number;
     }
-    else
-    {
+    else {
         [canvas setContentOffset:CGPointMake(number*width, 0)];
+        current = number;
     }
-   current = number;
 }
 - (void) onGotoPageFinished
 {
