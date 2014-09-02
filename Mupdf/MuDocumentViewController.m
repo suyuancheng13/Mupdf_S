@@ -1519,8 +1519,11 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
             
             NSString *text = [[alertView textFieldAtIndex:0]text];
             if(0 != [text length])
-            {     
-                fz_rect rect = {pressPosion.x,pressPosion.y,pressPosion.x+20*[text length],pressPosion.y+100};
+            {                   
+                fz_rect bounds;
+                fz_bound_page(doc, fz_load_page(doc, current), &bounds);
+                float height = bounds.y1 - bounds.y0;
+                fz_rect rect = {pressPosion.x, height-pressPosion.y,pressPosion.x+20*[text length],height-pressPosion.y+100};
                 //    fz_rect rect = {pressPosion.x-150,0,pressPosion.x+150,20};
                 printf("%s\n", [text UTF8String]);
                 pdf_create_watermark_with_string((pdf_document*)doc, [text UTF8String], rect);

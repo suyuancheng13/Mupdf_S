@@ -1296,7 +1296,7 @@ pdf_create_xobject(pdf_document *doc, char *text, char *font_name, int font_size
     docset = pdf_create_docset(doc, DEFAUL_TEXT_DOCSET, 0, text);
     float xy[2];
     xy[0] = rect.x0;
-    xy[1] = rect.y0 ;
+    xy[1] = rect.y0+50 ;
     
     fz_matrix mat = {1,0,0,1,0,0};
     char *stream = pdf_update_xobject_stream(text, font_name, font_size, rgb, xy);
@@ -1780,7 +1780,7 @@ pdf_watermark *pdf_create_watermark_with_string(pdf_document *doc, char *text, f
     /* 变换矩阵，内容的旋转，缩放 */
     /* 默认变换矩阵 */
     fz_matrix content_mat = {1, 0, 0, 1,0, 0};
-    //fz_pre_rotate(&content_mat, 45);
+   // fz_pre_rotate(&content_mat, 45);
     
     int count = pdf_count_pages(doc);
     for (int i = 0; i<count; i++)
