@@ -405,7 +405,7 @@ extern dispatch_queue_t queue;
             if([choosenFiles count]<=1)
                 return;
             // logMemUsage();
-            dispatch_async(queue, ^{
+          //  dispatch_async(queue, ^{
                 NSString *tem  =  [NSString stringWithFormat:@"%@/Documents/%@", NSHomeDirectory(),[[alertView textFieldAtIndex:0] text]];
                 const char *newfilename =[tem UTF8String];
                 NSString *filename[10];
@@ -420,7 +420,7 @@ extern dispatch_queue_t queue;
                 }
                 
                 pdf_save_merged_file(doc[0], newfilename);
-            });
+         //   });
         }
         //logMemUsage();
         

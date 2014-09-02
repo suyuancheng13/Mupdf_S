@@ -1313,10 +1313,14 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
             const char *pass = [addPassBoerd.userPWD UTF8String];
             const char *own = [addPassBoerd.ownPWD UTF8String];
             pdf_add_password((pdf_document*)doc, filename, own,pass, ANNOTATION);
-            if(handling)
-            {
-                [handling stopAnimating];
-            }
+          
+            dispatch_async(dispatch_get_main_queue(), ^{//stop the activity in time
+                if(handling)
+                {
+                    [handling stopAnimating];
+                }
+            });
+
         });
         
     }
@@ -1375,7 +1379,29 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
     else {
         permissionsForChange &= NOPAGEHANDLE;
     }
+    /*
+     密码进不去则不能用多线程
+     */
     pdf_modify_permission((pdf_document*)doc, filename, pass, own, permissionsForChange);
+    
+//    handling =[[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+//    [handling setFrame:CGRectMake(100, 100, 100, 100)];
+//    [handling setBackgroundColor:[UIColor blackColor]];
+//    [handling setAlpha:0.5];
+//    [handling startAnimating];
+//    [self.view addSubview:handling];
+//    [handling release];
+//    
+//    dispatch_async(queue, ^{
+//        pdf_modify_permission((pdf_document*)doc, filename, pass, own, permissionsForChange);
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            if(handling)
+//            {
+//                [handling stopAnimating];
+//            }
+//        });
+//    });
+
 }
 
 - (void)onButtonClick:(NSInteger)tag sender:(id)sender
@@ -1435,8 +1461,8 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
 	pagesize.height = bounds.y1 - bounds.y0;
     
     
-    float centerx = size.width/2;
-    float centery = size.height/2;
+    float centerx = pagesize.width/2;
+    float centery = pagesize.height/2;
     float offsetX = (_width/2);
     float offsetY = (_height/2);
 
@@ -1469,7 +1495,26 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
     
 	if (buttonIndex == 1) {
         if(2 == [alertView tag])
-            pdf_remove_password((pdf_document*)doc,filename );
+            {
+                handling =[[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+                [handling setFrame:CGRectMake(100, 100, 100, 100)];
+                [handling setBackgroundColor:[UIColor blackColor]];
+                [handling setAlpha:0.5];
+                [handling startAnimating];
+                [self.view addSubview:handling];
+                [handling release];
+                dispatch_async(queue, ^{
+                    pdf_remove_password((pdf_document*)doc,filename );
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if(handling)
+                        {
+                            [handling stopAnimating];
+                        }
+                    });
+                });
+                
+            }
+
         else {
             
             NSString *text = [[alertView textFieldAtIndex:0]text];

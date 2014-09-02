@@ -1561,7 +1561,7 @@ int create_watermark_xobject_form(pdf_document *doc,int img,const fz_matrix matr
     strcat(data, h);
     free(h);
     char *b = (char*)malloc(20*sizeof(char));
-    sprintf(b, "%.1f %.1f ",bbox->x0,bbox->y0);//the location of the form
+    sprintf(b, "%.1f %.1f ",bbox->x0,bbox->y0);//the location of the image in the form frame
     strcat(data, b);
     free(b);
     
@@ -1629,7 +1629,7 @@ void pdf_add_watermark_toPage(pdf_document *doc,int pageNum,int formXobject,cons
             q\n\
             1 0 0 1 ");
     char * cm = (char*)(malloc(20*sizeof(char)));
-    sprintf(cm, "%.1f %.1f ",bbox->x0,bbox->y0);
+    sprintf(cm, "%.1f %.1f ",bbox->x0,bbox->y0);//the location of the form in the page
     strcat(data2, cm);
     free(cm);
     strcat(data2,"cm\n/waterMark Do\nQ\nEMC\n");
@@ -1682,7 +1682,12 @@ pdf_watermark *pdf_create_watermark_with_img(pdf_document *doc,int pageNum,const
      step2:create a form xobject that to show the image xobject
      */
     const fz_matrix matrix = {1,0,0,1,0,0};
-    form = create_watermark_xobject_form(doc,img,matrix,bbox);
+    fz_rect rect;
+    rect.x0 = 0;
+    rect.y0 = 0;
+    rect.x1 = bbox->x1-bbox->x0;
+    rect.y1 = bbox->y1-bbox->y0;
+    form = create_watermark_xobject_form(doc,img,matrix,&rect);
        
     /*
      step3:add the image watermark to the content(s) of the page(s)
