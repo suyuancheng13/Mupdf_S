@@ -188,7 +188,7 @@ void save(pdf_document *doc,char *filename)
     ops.do_incremental = 0;
     ops.continue_on_error = 1;
     ops.do_linear = 0;
-    ops.do_garbage = 0;
+    ops.do_garbage = 1;
     ops.do_expand = 0 ;
     ops.do_ascii = 0 ;
     ops.errors = &erro;
@@ -203,13 +203,14 @@ pdf_document *linearize_file(pdf_document *doc,char *filename)
 {
     fz_write_options ops;
     pdf_document *tdoc;
+    fz_context *ctx = doc->ctx;
     file = (char *)malloc(strlen(filename)*sizeof(char));
     strncpy(file, filename, strlen(filename));
     int erro = 0 ;
     ops.do_incremental = 0;
     ops.continue_on_error = 1;
     ops.do_linear = 0;
-    ops.do_garbage = 0;
+    ops.do_garbage = 1;
     ops.do_expand = 0 ;
     ops.do_ascii = 0 ;
     ops.errors = &erro;
@@ -218,7 +219,8 @@ pdf_document *linearize_file(pdf_document *doc,char *filename)
     strncpy(temp+1, TEMP_FILE,strlen(TEMP_FILE));
     *(temp+1+strlen(TEMP_FILE))='\0';
     pdf_write_document(doc, file, &ops);
-    tdoc = pdf_open_document(doc->ctx, file);
+    //pdf_close_document(doc);
+    tdoc = pdf_open_document(ctx, file);
     //free(file);
     return tdoc;
 }
@@ -245,6 +247,8 @@ pdf_document * password_or_permission(pdf_document *doc,char *filename,const cha
     unsigned char UPwd[32];
     unsigned char key[32];
     int count = pdf_count_objects(doc);
+    fz_context *ctx = doc->ctx;
+    pdf_document *tdoc;
     pdf_xref_entry *x;
     
     pdf_obj *trailer = pdf_trailer(doc);
@@ -396,7 +400,8 @@ pdf_document * password_or_permission(pdf_document *doc,char *filename,const cha
      reopen the file with the password（there is some problem when save out of the file）
      */
     save(doc,filename);
-    doc = pdf_open_document(doc->ctx, filename);
+   // pdf_close_document(doc);
+    doc = pdf_open_document(ctx, filename);
     fz_authenticate_password((fz_document *)doc, userPWD);
     char *file = (char *)malloc(strlen(filename)*sizeof(char));
     strncpy(file, filename, strlen(filename));
@@ -406,8 +411,7 @@ pdf_document * password_or_permission(pdf_document *doc,char *filename,const cha
     *(temp+1+strlen(TEMP_FILE))='\0';
     remove(file);
     free(file);
-    return doc;
-    
+    return doc;    
 }
 /*
  * Add a password to a document
@@ -460,13 +464,16 @@ pdf_document * pdf_remove_password(pdf_document *doc, const char *filename)
     /*
      处理与用adobe加密等操作的兼容，因为用adobe加密的文件存在objstm之前的代码不能处理。
      */
+    fz_context *ctx = doc->ctx;
+    pdf_document *tdoc;
     pdf_dict_dels(pdf_trailer(doc), "Encrypt");
     doc = linearize_file(doc, filename);
     save(doc, filename);
+    pdf_close_document(doc);
     remove(file);
     free(file);
-    doc = pdf_open_document(doc->ctx, filename);
-    return doc;
+    tdoc = pdf_open_document(ctx, filename);
+    return tdoc;
     
 }
 

@@ -407,7 +407,7 @@ extern dispatch_queue_t queue;
             // logMemUsage();
           //  dispatch_async(queue, ^{
                 NSString *tem  =  [NSString stringWithFormat:@"%@/Documents/%@", NSHomeDirectory(),[[alertView textFieldAtIndex:0] text]];
-                const char *newfilename =[tem UTF8String];
+                char *newfilename =[tem UTF8String];
                 NSString *filename[10];
                 pdf_document *doc[10];
                 filename[0] =  [NSString stringWithFormat:@"%@/Documents/%@", NSHomeDirectory(),[choosenFiles objectAtIndex:0]];
@@ -523,7 +523,7 @@ extern dispatch_queue_t queue;
             UIAlertView *test = [[UIAlertView alloc]initWithTitle:@"文件名" message:@"合并后的文件名" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
             [test setAlertViewStyle:UIAlertViewStylePlainTextInput];
             [test setTag:2];
-            [[test textFieldAtIndex:0]setPlaceholder:@"text"];
+            [[test textFieldAtIndex:0]setPlaceholder:@"filename.pdf"];
             [test show];
             [test release];
         }

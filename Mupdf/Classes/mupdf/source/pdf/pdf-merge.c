@@ -544,7 +544,7 @@ void save(pdf_document *doc,char *filename)
     ops.do_incremental = 1;
     ops.continue_on_error = 1;
     ops.do_linear = 0;
-    ops.do_garbage = 0;
+    ops.do_garbage = 1;
     ops.do_expand = 0 ;
     ops.do_ascii = 0 ;
     ops.errors = &erro;
@@ -568,7 +568,7 @@ pdf_document *linearize_file(pdf_document *doc)
     ops.do_incremental = 0;
     ops.continue_on_error = 1;
     ops.do_linear = 0;
-    ops.do_garbage = 0;
+    ops.do_garbage = 1;
     ops.do_expand = 0 ;
     ops.do_ascii = 0 ;
     ops.errors = &erro;
@@ -577,7 +577,7 @@ pdf_document *linearize_file(pdf_document *doc)
     *(temp+1+strlen(TEMP_FILE))='\0';
     
     pdf_write_document(doc, File, &ops);
-     pdf_close_document(doc);
+    // pdf_close_document(doc);
     doc = pdf_open_document(ctx, File);
     //unlink(File);
     // free(File);
@@ -616,7 +616,7 @@ pdf_document *linearize(pdf_document *doc,char *oldfile)
     //tdoc = pdf_open_document(ctx, tempFile);
     
     pdf_write_document(doc, oldfile, &ops);//replace the origin file
-    pdf_close_document(doc);
+   // pdf_close_document(doc);
     doc = pdf_open_document(ctx, oldfile);
     // unlink(tempFile);
     //fz_free_context(ctx);

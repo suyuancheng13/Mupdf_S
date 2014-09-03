@@ -112,6 +112,7 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
         
 
         doc = aDoc;
+        [self unlock];
         fz_outline *root = fz_load_outline(doc);
         if (root) {
             NSMutableArray *titles = [[NSMutableArray alloc] init];
@@ -299,7 +300,7 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
 	[outline release];outline = nil;
 	[key release];key = nil;
     [alert release];alert = nil;
-    [handling release];handling = nil;
+   // [handling release];handling = nil;
     [background release];background=nil;
     [Home release]; Home = nil;
     [password release];
@@ -1222,7 +1223,7 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
     alert = [[UIAlertView alloc]initWithTitle:@"WARNNING" message:@"是否确认移除密码" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
     [alert setTag:2];
     [alert show];
-    [alert release];
+    //[alert release];
 }
 - (void)showSecuritys
 {
@@ -1306,13 +1307,13 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
         [handling startAnimating];
         [self.view addSubview:handling];
         [handling release];
-        //[handling dictionaryWithValuesForKeys:<#(NSArray *)#>]
+        
         
         dispatch_async(queue,^{
             printf("%s",filename);
             const char *pass = [addPassBoerd.userPWD UTF8String];
             const char *own = [addPassBoerd.ownPWD UTF8String];
-            pdf_add_password((pdf_document*)doc, filename, own,pass, ANNOTATION);
+            doc = (fz_document*)pdf_add_password((pdf_document*)doc, filename, own,pass, ANNOTATION);
           
             dispatch_async(dispatch_get_main_queue(), ^{//stop the activity in time
                 if(handling)
@@ -1435,6 +1436,7 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
  
     fz_close_document(doc);
     doc = fz_open_document(ctx, filename);
+    fz_load_page(doc, current);
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     [fileManager removeItemAtURL:recordedFile error:nil];
@@ -1504,7 +1506,7 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
                 [self.view addSubview:handling];
                 [handling release];
                 dispatch_async(queue, ^{
-                    pdf_remove_password((pdf_document*)doc,filename );
+                    doc = (fz_document*)pdf_remove_password((pdf_document*)doc,filename );
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if(handling)
                         {
@@ -1598,4 +1600,82 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
 {
     return  self;
 }
+
+#pragma mark- unlock pheoniex ebbok
+- (void) unlock
+{
+    char *utf8;
+    pdf_obj *root;
+    pdf_obj *acroform;
+    pdf_obj *form;
+    int i = 0;
+    char *creatorV = "Vitrium Systems Inc";
+    char *creator;
+    //直接执行解锁部分函数
+    // pdf_js_execute(((pdf_document *)doc)->js, "r();");
+    
+    /*
+     handler the vitrium system inc ebook
+     */
+    creator = pdf_to_str_buf(pdf_dict_getp(pdf_trailer((pdf_document *)doc), "Info/Creator"));
+    if(strncmp(creator, creatorV, 19))
+    {
+        return;
+    }
+    
+    /*
+     *与js不交互，直接解锁
+     */
+    utf8 = "boom";
+    root = pdf_dict_gets(pdf_trailer((pdf_document *)doc), "Root");
+    acroform = pdf_dict_gets(root, "AcroForm");
+    form = pdf_dict_gets(acroform, "Fields");
+    
+    //find the boom.info
+    pdf_obj * dict = pdf_lookup_field(form, utf8);
+    pdf_obj * dictO = pdf_load_object((pdf_document *)doc, pdf_to_num(dict), 0);
+    //hidden the boom.info
+    pdf_field_set_display((pdf_document *)(doc), dictO, 1);
+    // pdf_update_object((pdf_document *)doc, pdf_to_num(dictO), 0);
+    
+    //set the ocgs properties to show the content
+    pdf_obj  *ocg = pdf_dict_gets(pdf_dict_gets(pdf_trailer((pdf_document *)doc), "Root"), "OCProperties");
+    pdf_dict_dels(pdf_dict_gets(pdf_trailer((pdf_document*)doc), "Root"), "AA");
+    pdf_obj *array = pdf_dict_gets(ocg, "OCGs");//get the array of the ocgs
+    //    pdf_print_obj(ocg);
+    pdf_obj *D = pdf_dict_gets(ocg, "D");
+    pdf_obj *On = pdf_dict_gets(D, "ON");
+    pdf_obj *Off = pdf_dict_gets(D,"OFF");
+
+    pdf_dict_dels(D, "ON");
+    pdf_dict_dels(D, "OFF");
+    
+    
+    int len = pdf_array_len(array);
+
+    pdf_obj *o = pdf_array_get(array,0);
+    pdf_obj *o1 = pdf_array_get(array, 1);
+
+    pdf_obj *ao = pdf_new_array((pdf_document *)doc, 1);
+    pdf_array_push_drop(ao, o);
+    pdf_obj *ao1 = pdf_new_array((pdf_document *)doc, 1);
+    pdf_array_push_drop(ao1, o1);
+    pdf_dict_putp_drop(D, "ON", ao);
+    pdf_dict_putp_drop(D, "OFF", ao1);
+    
+
+    
+    pdf_obj *oo = pdf_load_object(((pdf_document *)doc), pdf_to_num(o), pdf_to_gen(o));
+    pdf_obj *oo1 = pdf_load_object(((pdf_document *)doc), pdf_to_num(o1), pdf_to_gen(o1));
+    
+    pdf_dict_putp_drop(oo, "Usage/View/ViewState",pdf_new_name(((pdf_document*)doc),"ON"));
+    pdf_dict_putp_drop(oo1,"Usage/View/ViewState",pdf_new_name(((pdf_document*)doc),"OFF"));
+    
+    pdf_update_object(((pdf_document *)doc), pdf_to_num(oo), 0);
+    pdf_update_object(((pdf_document *)doc), pdf_to_num(oo1), 0);
+    
+    ((pdf_document *)doc)->ocg[0].ocgs->state =1;
+    
+}
+
 @end
