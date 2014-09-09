@@ -429,6 +429,7 @@ extern dispatch_queue_t queue;
         if(1== [alertView tag])
             [self onPasswordCancel];
     }
+    [self reload];
 }
 - (void)onPasswordOkay
 {

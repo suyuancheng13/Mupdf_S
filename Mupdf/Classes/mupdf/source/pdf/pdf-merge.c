@@ -549,7 +549,7 @@ void save(pdf_document *doc,char *filename)
     ops.do_ascii = 0 ;
     ops.errors = &erro;
     pdf_write_document(doc, filename, &ops);
-    pdf_close_document(doc);
+//    pdf_close_document(doc);
 }
 
 /*
@@ -559,7 +559,7 @@ static
 pdf_document *linearize_file(pdf_document *doc)
 {
     fz_write_options ops;
-    // pdf_document *tdoc;
+    pdf_document *tdoc;
     fz_context *ctx = doc->ctx;
     File = (char *)malloc(strlen(tempFile1)*sizeof(char));
     strncpy(File, tempFile1, strlen(tempFile1));
@@ -578,10 +578,10 @@ pdf_document *linearize_file(pdf_document *doc)
     
     pdf_write_document(doc, File, &ops);
     // pdf_close_document(doc);
-    doc = pdf_open_document(ctx, File);
-    //unlink(File);
-    // free(File);
-    return doc;
+    tdoc = pdf_open_document(ctx, File);
+//    unlink(File);
+//     free(File);
+    return tdoc;
 }
 /*
  linearize the file
@@ -608,20 +608,12 @@ pdf_document *linearize(pdf_document *doc,char *oldfile)
     char *temp = rindex(tempFile, '/');
     strncpy(temp+1, TEMP_FILE1,strlen(TEMP_FILE1));
     *(temp+1+strlen(TEMP_FILE1))='\0';
-    //pdf_write_document(doc, tempFile, &ops);
-    //pdf_close_document(doc);
-    
-    
-    // pdf_write_document(doc, TEMP_FILE1, &ops);//write to temp file
-    //tdoc = pdf_open_document(ctx, tempFile);
     
     pdf_write_document(doc, oldfile, &ops);//replace the origin file
-   // pdf_close_document(doc);
-    doc = pdf_open_document(ctx, oldfile);
-    // unlink(tempFile);
-    //fz_free_context(ctx);
+    tdoc = pdf_open_document(ctx, oldfile);
+ 
     free(tempFile);
-    return doc;
+    return tdoc;
 }
 /*
  *get the date of current day
@@ -825,7 +817,7 @@ pdf_document *merge_file(pdf_document *doc,pdf_document *new_doc)
                     }
                 }
             }
-            
+              unlink(File);
             /*
              step 1.2 update objects and stream to doc
              */
@@ -900,7 +892,7 @@ pdf_document *merge_file(pdf_document *doc,pdf_document *new_doc)
     
     //remove(TEMP_FILE);
     //pdf_close_document(new_doc);//如果close，会概率性的挂
-    unlink(File);
+//    unlink(File);
     free(File);
     //    if(l)
     //        remove("tem_merge_mov.pdf");

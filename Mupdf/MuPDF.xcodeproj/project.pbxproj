@@ -787,7 +787,6 @@
 			children = (
 				E5F2E25019A33445004F50E9 /* merge.png */,
 				E5F2E24D19A3343E004F50E9 /* trash.png */,
-				BBA720DD17868CBA0019EDE0 /* zlib */,
 				E584F25619797F0100E4C024 /* Music.png */,
 				E58330AB199A3D5800342F6F /* recoder.png */,
 				E584F25419797EFB00E4C024 /* PicWatermark.png */,
@@ -822,6 +821,7 @@
 		BBA7206917868CBA0019EDE0 /* Supports */ = {
 			isa = PBXGroup;
 			children = (
+				BBA720DD17868CBA0019EDE0 /* zlib */,
 				BBAB90FE17EE808B00BB2E93 /* jpeg */,
 				BBA7206A17868CBA0019EDE0 /* freetype */,
 				BBBC2AA7178AC0190062B774 /* JavaScriptCore */,
@@ -1012,8 +1012,7 @@
 				BB427EFE178BABA000187BDD /* lib */,
 				BBA720DE17868CBA0019EDE0 /* include */,
 			);
-			name = zlib;
-			path = ../Supports/zlib;
+			path = zlib;
 			sourceTree = "<group>";
 		};
 		BBA720DE17868CBA0019EDE0 /* include */ = {
