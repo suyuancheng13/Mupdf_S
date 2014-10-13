@@ -54,6 +54,7 @@
     [[cell textLabel]setFont:[UIFont systemFontOfSize:[UIFont smallSystemFontSize]]];
     [[cell textLabel]setTextAlignment:UITextAlignmentLeft];
     [[cell textLabel]textRectForBounds:CGRectMake(0,0, 200, 20) limitedToNumberOfLines:2];
+    [cell textLabel].numberOfLines = 0;
     NSNumber *n = [_pages objectAtIndex:indexPath.row];
     
     NSString *text = [[NSString alloc]initWithFormat:@"%@--%d",[_titles objectAtIndex:indexPath.row],[n intValue]+1];

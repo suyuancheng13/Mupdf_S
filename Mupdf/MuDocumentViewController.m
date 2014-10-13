@@ -465,7 +465,10 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
         return;
     if(current == number)
         return;
-    
+    if([[self navigationController]isToolbarHidden])
+    {
+        [[self navigationController]setToolbarHidden:NO];
+    }
     if(animated){
         scroll_animating = YES;
         [UIView beginAnimations: @"MuScroll" context: NULL];
@@ -638,6 +641,10 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
         [popView removeFromSuperview];
         [popView release];
          popView = nil;
+    }
+    if(outline)
+    {
+        [outline removeFromSuperview];
     }
     CGPoint point = [sender locationInView:canvas];
     CGPoint ofs = [canvas contentOffset];
