@@ -119,7 +119,7 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
             NSMutableArray *pages = [[NSMutableArray alloc] init];
             flattenOutline(titles, pages, root, 0);
             if ([titles count])
-                //  outline = [[MuOutlineController alloc] initWithTarget: self titles: titles pages: pages];
+                  outline = [[MuOutlineView alloc] initWithTarget: self titles: titles pages: pages];
                 [titles release];
             [pages release];
             fz_free_outline(ctx, root);
@@ -238,7 +238,17 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
 //    [[self navigationController].navigationBar setBackgroundImage:imaget forBarMetrics:UIBarMetricsDefault];
 //    [[self navigationController].navigationBar setAlpha:0.6];
 //    [imaget release];
-
+    if (outline) {
+        UIImage *image = [UIImage imageNamed:@"outline.png"];
+        UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
+        
+        imageView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *_outline = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(onShowOutline:)];
+        [imageView addGestureRecognizer:_outline];
+        outlineButton = [[UIBarButtonItem alloc]initWithCustomView:imageView];
+        [imageView release];
+        [image release];
+	}
     /*
      set the security barbutton
      */  
@@ -264,7 +274,7 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
     [images release];
     [imviews release];
     
-    [[self navigationItem]setRightBarButtonItems:[NSArray arrayWithObjects:searchButton, ToolBar,share,nil]];
+    [[self navigationItem]setRightBarButtonItems:[NSArray arrayWithObjects:searchButton, ToolBar,share,outlineButton,nil]];
    
    // [[self navigationController].navigationBar setBackgroundColor:[UIColor grayColor]];
   
@@ -481,7 +491,15 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
 	scroll_animating = NO;
 	[self scrollViewDidScroll: canvas];
 }
-- (void) onShowOutline: (id)sender{}
+- (void) onShowOutline: (id)sender{
+    CGPoint point;
+    point.x = [[UIScreen mainScreen]bounds].size.width - (searchButton.customView.frame.size.width+outlineButton.customView.frame.size.width+ToolBar.customView.frame.size.width+share.customView.frame.size.width);
+    point.y =0;
+    //NSLog(@"%f",point.x);
+    [outline setLocation:point];
+    [self.view addSubview:outline];
+    [[self navigationController]setToolbarHidden:YES];
+}
 - (void) onShowSearch: (id)sender
 {
     searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 300, 32)];
@@ -834,7 +852,7 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
     [self setToolbarItems:[NSArray arrayWithObjects:sliderWrapper, nil]];
     [[self navigationController]setToolbarHidden:NO];
     [self.navigationItem setTitleView:nil];
-    [[self navigationItem]setRightBarButtonItems:[NSArray arrayWithObjects:searchButton,ToolBar,share, nil]];
+    [[self navigationItem]setRightBarButtonItems:[NSArray arrayWithObjects:searchButton,ToolBar,share,outlineButton, nil]];
 
 }
 
@@ -1599,6 +1617,7 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
 - (UIViewController *)documentInteractionControllerViewControllerForPreview:(UIDocumentInteractionController *)controller
 {
     return  self;
+    
 }
 
 #pragma mark- unlock pheoniex ebbok

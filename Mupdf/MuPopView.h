@@ -16,6 +16,5 @@
 - (void)hiddenPopView:(BOOL)animated;
 - (void)showPopView:(BOOL)animated;
 - (void)dismissPopView:(BOOL)animated;
-
 - (void)addButtonWithTitle:(NSArray *)titles;
 @end

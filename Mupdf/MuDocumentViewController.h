@@ -15,13 +15,16 @@
 #import "MuAlertView.h"
 #import "MuFileManageWithType.h"
 #import "MuPopView.h"
+#import "MuOutlineView.h"
+
 enum {ADDPASSWORD,REMOVEPASSWORD,MODIFYPASSWORD,MODIFYPERMISSION};
 #define PERMISSIONNUMBERS 8
 @interface MuDocumentViewController : UIViewController<UIScrollViewDelegate,UISearchBarDelegate,UITextFieldDelegate,UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate,MuActionSheetActionDeleglate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UIDocumentInteractionControllerDelegate>
 {
    	fz_document *doc;
 	NSString *key;
-	MuOutlineViewController *outline;
+    MuOutlineView *outline;
+//	MuOutlineViewController *outline;
 	UIScrollView *canvas;
 	UILabel *indicator;
 	UISlider *slider;

@@ -26,7 +26,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "499"
          endingLineNumber = "499"
-         landmarkName = "-onShowSearch:"
+         landmarkName = "-onShowOutline:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -91,7 +91,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "1125"
          endingLineNumber = "1125"
-         landmarkName = "-passWordTool"
+         landmarkName = "-choosePicWatermark"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -117,8 +117,8 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "592"
          endingLineNumber = "592"
-         landmarkName = "@implementation MuDocumentViewController"
-         landmarkType = "3">
+         landmarkName = "-searchBarSearchButtonClicked:"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
@@ -130,7 +130,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "1196"
          endingLineNumber = "1196"
-         landmarkName = "-addPassword"
+         landmarkName = "-passWordTool"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -208,7 +208,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "1239"
          endingLineNumber = "1239"
-         landmarkName = "-showSecuritys"
+         landmarkName = "-removePassword"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -286,7 +286,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "373"
          endingLineNumber = "373"
-         landmarkName = "-viewWillDisappear:"
+         landmarkName = "-viewWillLayoutSubviews"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint

@@ -420,10 +420,11 @@ extern dispatch_queue_t queue;
                 }
                 
                 pdf_save_merged_file(doc[0], newfilename);
+            [choosenFiles removeAllObjects];
          //   });
         }
         //logMemUsage();
-        
+    
 	} else 
     {
         if(1== [alertView tag])
@@ -515,7 +516,7 @@ extern dispatch_queue_t queue;
                 printf("delete document '%s'\n", filename);
                 
                 unlink(filename);//delete the link of the file
-                
+                [choosenFiles removeAllObjects];
                 [self reload];
             }
         }

@@ -219,6 +219,8 @@
 		E5348C0F1994CD74006AF234 /* libopenjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB427EFC178BAB9A00187BDD /* libopenjpeg.a */; };
 		E5348C101994CD7E006AF234 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB427EFF178BABA000187BDD /* libz.a */; };
 		E53CCD1F197BDA3C0022D513 /* MuPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = E53CCD1E197BDA3C0022D513 /* MuPopView.m */; };
+		E559605D19EB770200DF405A /* MuOutlineTable.m in Sources */ = {isa = PBXBuildFile; fileRef = E559605919EB770200DF405A /* MuOutlineTable.m */; };
+		E559605E19EB770200DF405A /* MuOutlineView.m in Sources */ = {isa = PBXBuildFile; fileRef = E559605B19EB770200DF405A /* MuOutlineView.m */; };
 		E58330AC199A3D5800342F6F /* recoder.png in Resources */ = {isa = PBXBuildFile; fileRef = E58330AB199A3D5800342F6F /* recoder.png */; };
 		E584F25019797EEC00E4C024 /* WordWatermark.png in Resources */ = {isa = PBXBuildFile; fileRef = E584F24F19797EEC00E4C024 /* WordWatermark.png */; };
 		E584F25319797EF300E4C024 /* Vedio.png in Resources */ = {isa = PBXBuildFile; fileRef = E584F25219797EF300E4C024 /* Vedio.png */; };
@@ -243,6 +245,7 @@
 		E5BD458A1979344E00CA747A /* Annotation.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BD45891979344E00CA747A /* Annotation.png */; };
 		E5BD458D1979345300CA747A /* MultiMedia.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BD458C1979345300CA747A /* MultiMedia.png */; };
 		E5BD458F1979345B00CA747A /* WaterMark.png in Resources */ = {isa = PBXBuildFile; fileRef = E5BD458E1979345B00CA747A /* WaterMark.png */; };
+		E5C63ACC19EBB7FA00CAC355 /* outline.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C63ACB19EBB7F900CAC355 /* outline.png */; };
 		E5DC6D38196DA9E30035FACE /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DC6D37196DA9E30035FACE /* lock.png */; };
 		E5DC6D3B196EE5B30035FACE /* DefaultToolBar.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DC6D3A196EE5B30035FACE /* DefaultToolBar.png */; };
 		E5DF830F19703312001F4997 /* search1.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DF830E19703312001F4997 /* search1.png */; };
@@ -612,6 +615,10 @@
 		E516922C1976CCC200E9E968 /* MuAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MuAlertView.m; sourceTree = "<group>"; };
 		E53CCD1D197BDA3C0022D513 /* MuPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MuPopView.h; sourceTree = "<group>"; };
 		E53CCD1E197BDA3C0022D513 /* MuPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MuPopView.m; sourceTree = "<group>"; };
+		E559605819EB770200DF405A /* MuOutlineTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MuOutlineTable.h; sourceTree = "<group>"; };
+		E559605919EB770200DF405A /* MuOutlineTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MuOutlineTable.m; sourceTree = "<group>"; };
+		E559605A19EB770200DF405A /* MuOutlineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MuOutlineView.h; sourceTree = "<group>"; };
+		E559605B19EB770200DF405A /* MuOutlineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MuOutlineView.m; sourceTree = "<group>"; };
 		E580B8FA199246B1000F4EC5 /* MuPDF copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MuPDF copy-Info.plist"; path = "/Users/suyuancheng/Desktop/ios/MuPDF copy-Info.plist"; sourceTree = "<absolute>"; };
 		E58330AB199A3D5800342F6F /* recoder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = recoder.png; sourceTree = "<group>"; };
 		E584F24F19797EEC00E4C024 /* WordWatermark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WordWatermark.png; sourceTree = "<group>"; };
@@ -647,6 +654,7 @@
 		E5BD45891979344E00CA747A /* Annotation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Annotation.png; sourceTree = "<group>"; };
 		E5BD458C1979345300CA747A /* MultiMedia.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MultiMedia.png; sourceTree = "<group>"; };
 		E5BD458E1979345B00CA747A /* WaterMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WaterMark.png; sourceTree = "<group>"; };
+		E5C63ACB19EBB7F900CAC355 /* outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = outline.png; sourceTree = "<group>"; };
 		E5DC6D37196DA9E30035FACE /* lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lock.png; sourceTree = "<group>"; };
 		E5DC6D3A196EE5B30035FACE /* DefaultToolBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultToolBar.png; sourceTree = SOURCE_ROOT; };
 		E5DF830E19703312001F4997 /* search1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search1.png; sourceTree = "<group>"; };
@@ -792,6 +800,7 @@
 				E584F25419797EFB00E4C024 /* PicWatermark.png */,
 				E5871494199E05C100809AE2 /* share.png */,
 				E584F25219797EF300E4C024 /* Vedio.png */,
+				E5C63ACB19EBB7F900CAC355 /* outline.png */,
 				E584F24F19797EEC00E4C024 /* WordWatermark.png */,
 				E5BD45891979344E00CA747A /* Annotation.png */,
 				E5AB4D3D1977234400F8BA74 /* Tools.png */,
@@ -1388,6 +1397,10 @@
 				E5B7FF4A1979AA930064ED64 /* CFunction.h */,
 				E53CCD1D197BDA3C0022D513 /* MuPopView.h */,
 				E53CCD1E197BDA3C0022D513 /* MuPopView.m */,
+				E559605819EB770200DF405A /* MuOutlineTable.h */,
+				E559605919EB770200DF405A /* MuOutlineTable.m */,
+				E559605A19EB770200DF405A /* MuOutlineView.h */,
+				E559605B19EB770200DF405A /* MuOutlineView.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -1484,6 +1497,7 @@
 				E5871495199E05C100809AE2 /* share.png in Resources */,
 				E5F2E24E19A3343E004F50E9 /* trash.png in Resources */,
 				E5F2E25119A33445004F50E9 /* merge.png in Resources */,
+				E5C63ACC19EBB7FA00CAC355 /* outline.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1710,6 +1724,8 @@
 				E5B7FF4C1979ABEA0064ED64 /* CFunction.cpp in Sources */,
 				E5B7FF4E1979AD110064ED64 /* pdf-sound.c in Sources */,
 				E53CCD1F197BDA3C0022D513 /* MuPopView.m in Sources */,
+				E559605D19EB770200DF405A /* MuOutlineTable.m in Sources */,
+				E559605E19EB770200DF405A /* MuOutlineView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
