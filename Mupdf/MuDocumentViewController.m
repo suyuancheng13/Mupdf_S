@@ -495,6 +495,12 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
 	[self scrollViewDidScroll: canvas];
 }
 - (void) onShowOutline: (id)sender{
+    if(popView)
+    {
+        [popView removeFromSuperview];
+        [popView release];
+        popView = nil;
+    }
     CGPoint point;
     point.x = [[UIScreen mainScreen]bounds].size.width - (searchButton.customView.frame.size.width+outlineButton.customView.frame.size.width+ToolBar.customView.frame.size.width+share.customView.frame.size.width);
     point.y =0;
@@ -505,6 +511,12 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
 }
 - (void) onShowSearch: (id)sender
 {
+    if(popView)
+    {
+        [popView removeFromSuperview];
+        [popView release];
+        popView = nil;
+    }
     searchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 300, 32)];
      UIImage *imaget = [UIImage imageNamed:@"DefaultNavigationBar.png"];
     [searchBar setBackgroundImage:imaget];
@@ -529,7 +541,7 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
     [next removeFromSuperview];
     
     [self.navigationItem setTitleView:nil];
-    [[self navigationItem]setRightBarButtonItems:[NSArray arrayWithObjects:searchButton,ToolBar,share, nil]];
+    [[self navigationItem]setRightBarButtonItems:[NSArray arrayWithObjects:searchButton,ToolBar,share,outlineButton, nil]];
     [[self navigationItem]setLeftBarButtonItem:Home];
     
 }
@@ -626,6 +638,12 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
 - (void) onSlide: (id)sender
 {
     int number = [slider value];
+    if(popView)
+    {
+        [popView removeFromSuperview];
+        [popView release];
+        popView = nil;
+    }
     if([slider isTracking])
     {
         [indicator setText:[NSString stringWithFormat: @"%d of %d",number+1,fz_count_pages(doc)]];
@@ -795,6 +813,12 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
     /*
      set tool bar items, new funtion
      */
+    if(popView)
+    {
+        [popView removeFromSuperview];
+        [popView release];
+        popView = nil;
+    }
     [[self navigationController]setToolbarHidden:NO];
     UIBarButtonItem *done = [[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self action:@selector(cancelTools)];
     [done setBackgroundImage:background forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
@@ -1613,6 +1637,12 @@ static void flattenOutline(NSMutableArray *titles, NSMutableArray *pages, fz_out
 #pragma mark- open in other app
 -(void)OpenIn
 {
+    if(popView)
+    {
+        [popView removeFromSuperview];
+        [popView release];
+        popView = nil;
+    }
     NSURL *url = [NSURL fileURLWithPath:[NSString stringWithUTF8String:filename]];
     UIDocumentInteractionController *documentHandle = [UIDocumentInteractionController interactionControllerWithURL:url];
     documentHandle.UTI = @"com.adobe.pdf";
